@@ -1,6 +1,7 @@
 
-import { Award, Briefcase, Calendar } from "lucide-react";
+import { Award, Briefcase } from "lucide-react";
 import { Certificate, Experience } from "@/types/experience";
+import React from "react";
 
 export const experiences: Experience[] = [
   {
