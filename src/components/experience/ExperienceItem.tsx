@@ -1,5 +1,5 @@
 
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Calendar } from "lucide-react";
 import { Experience } from "@/types/experience";
 import { cn } from "@/lib/utils";
 
