@@ -90,27 +90,39 @@ export const projects = [
     title: "DevSecOps Project: Netflix Clone on EKS",
     description: "Led a secure deployment of a Netflix clone application on AWS EKS using Docker, Kubernetes, and Jenkins. Integrated advanced security measures with tools like SonarQube and Trivy. Implemented Prometheus and Grafana for performance monitoring and employed Helm and ArgoCD for automated deployment processes.",
     tags: ["aws", "kubernetes", "docker", "jenkins", "sonarqube", "trivy", "prometheus", "grafana", "helm", "argocd"],
-    icon: React.createElement(Cloud, { size: 24, className: "text-cyber" })
+    icon: React.createElement(Cloud, { size: 24, className: "text-cyber" }),
+    githubUrl: "https://github.com/mridungeorge/netflix-eks-devsecops",
+    liveUrl: null,
+    details: "This comprehensive DevSecOps project involved deploying a Netflix clone on AWS Elastic Kubernetes Service (EKS) with a focus on security throughout the deployment pipeline. The implementation included continuous integration with Jenkins, secure containerization with Docker, and orchestration with Kubernetes. Security was enhanced through SonarQube for code quality analysis and Trivy for container vulnerability scanning. For observability, Prometheus was used to collect metrics and Grafana dashboards were set up for visualization. Helm charts managed Kubernetes resources while ArgoCD provided GitOps-based continuous delivery."
   },
   {
     id: 2,
     title: "Cybersecurity Web Application",
     description: "Developed an application simulating cybersecurity threats to enhance awareness. The application provides hands-on experience with common vulnerabilities and defensive techniques.",
     tags: ["node.js", "react.js", "typescript", "bcrypt", "sql", "cybersecurity"],
-    icon: React.createElement(Code, { size: 24, className: "text-cyber" })
+    icon: React.createElement(Code, { size: 24, className: "text-cyber" }),
+    githubUrl: "https://github.com/mridungeorge/security-awareness-app",
+    liveUrl: null,
+    details: "This educational platform was designed to raise cybersecurity awareness by simulating common attack vectors in a safe environment. The application demonstrates various vulnerabilities such as SQL injection, XSS attacks, CSRF, and insecure authentication workflows. Users can interact with the platform to understand how these attacks work and how to defend against them. Built with Node.js and React.js, the application implements proper security practices including input validation, password hashing with bcrypt, and prepared SQL statements to demonstrate secure coding practices."
   },
   {
     id: 3,
     title: "Cloud Infrastructure Deployment in AWS",
     description: "Orchestrated a cloud infrastructure project focused on deploying and monitoring services in AWS, ensuring the robustness and reliability of cloud resources.",
     tags: ["aws", "cloudformation", "terraform", "monitoring", "iam", "security"],
-    icon: React.createElement(Server, { size: 24, className: "text-cyber" })
+    icon: React.createElement(Server, { size: 24, className: "text-cyber" }),
+    githubUrl: "https://github.com/mridungeorge/aws-cloud-infrastructure",
+    liveUrl: null,
+    details: "This project focused on establishing a robust, scalable, and secure AWS cloud infrastructure using Infrastructure as Code principles. The deployment incorporated a multi-tier architecture with proper network segmentation through VPCs, subnets, and security groups. CloudFormation templates and Terraform configurations were used to provision and manage resources consistently across environments. Key components included auto-scaling groups for application resilience, load balancers for traffic distribution, and comprehensive IAM policies for fine-grained access control. Monitoring was implemented using CloudWatch for metrics collection and alerting, with dashboards for real-time visibility into system performance and health."
   },
   {
     id: 4,
     title: "OpenTelemetry Astronomy Shop Demo",
     description: "Deployed a microservices-based e-commerce platform with OpenTelemetry for observability. Implemented Kubernetes (EKS, AKS), Terraform, and Prometheus-Grafana for monitoring.",
     tags: ["kubernetes", "eks", "aks", "terraform", "prometheus", "grafana", "opentelemetry", "microservices"],
-    icon: React.createElement(Monitor, { size: 24, className: "text-cyber" })
+    icon: React.createElement(Monitor, { size: 24, className: "text-cyber" }),
+    githubUrl: "https://github.com/mridungeorge/opentelemetry-astronomy-shop",
+    liveUrl: null,
+    details: "This e-commerce demonstration application was built as a microservices architecture selling astronomy-related products. The platform leveraged OpenTelemetry to provide comprehensive observability across all services, capturing traces, metrics, and logs for end-to-end visibility. The infrastructure was deployed across multiple cloud providers using Kubernetes (both EKS on AWS and AKS on Azure) to showcase multi-cloud strategies. Terraform was used for infrastructure provisioning, ensuring consistency across environments. Prometheus collected metrics from all services, while Grafana dashboards provided real-time visualization of system performance, business metrics, and user behavior. The project demonstrates best practices for distributed systems monitoring and observability."
   }
 ];

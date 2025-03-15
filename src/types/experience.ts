@@ -17,3 +17,15 @@ export type Certificate = {
   date: string;
   icon: ReactElement;
 };
+
+export type Project = {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  icon: ReactElement;
+  githubUrl: string | null;
+  liveUrl: string | null;
+  details?: string;
+  image?: string;
+};
