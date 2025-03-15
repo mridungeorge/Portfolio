@@ -15,7 +15,7 @@ export const experiences: Experience[] = [
       "Infrastructure as Code: Automated provisioning with Terraform & CloudFormation, reducing manual configurations by 60%.",
       "Security & Compliance: Implemented SIEM solutions (Splunk, Microsoft Sentinel), ensuring compliance with ACSC Essential Eight, NIST frameworks."
     ],
-    icon: <Briefcase size={20} className="text-cyber" />
+    icon: React.createElement(Briefcase, { size: 20, className: "text-cyber" })
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ export const experiences: Experience[] = [
       "Optimized CI/CD automation with AWS CodePipeline, GitLab CI/CD, and containerized deployments.",
       "Strengthened cloud security with IAM policies, AWS WAF, and GuardDuty."
     ],
-    icon: <Briefcase size={20} className="text-cyber" />
+    icon: React.createElement(Briefcase, { size: 20, className: "text-cyber" })
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ export const experiences: Experience[] = [
     description: [
       "Contributed to AI/ML model training by enhancing Amazon Search Services through data annotation & quality assessments."
     ],
-    icon: <Briefcase size={20} className="text-cyber" />
+    icon: React.createElement(Briefcase, { size: 20, className: "text-cyber" })
   }
 ];
 
@@ -47,27 +47,27 @@ export const certificates: Certificate[] = [
     name: "AWS Certified Cloud Practitioner",
     issuer: "Amazon Web Services",
     date: "2023",
-    icon: <Award size={20} className="text-tech" />
+    icon: React.createElement(Award, { size: 20, className: "text-tech" })
   },
   {
     id: 2,
     name: "AWS Solution Architect Associate",
     issuer: "Amazon Web Services",
     date: "2023",
-    icon: <Award size={20} className="text-tech" />
+    icon: React.createElement(Award, { size: 20, className: "text-tech" })
   },
   {
     id: 3,
     name: "Junior Penetration Tester",
     issuer: "TryHackMe",
     date: "2022",
-    icon: <Award size={20} className="text-tech" />
+    icon: React.createElement(Award, { size: 20, className: "text-tech" })
   },
   {
     id: 4,
     name: "DevSecOps Path Completion",
     issuer: "TryHackMe",
     date: "2022",
-    icon: <Award size={20} className="text-tech" />
+    icon: React.createElement(Award, { size: 20, className: "text-tech" })
   }
 ];
