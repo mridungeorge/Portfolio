@@ -1,5 +1,5 @@
 
-import { Award, Briefcase } from "lucide-react";
+import { Award, Briefcase, Cloud, Code, Server, Monitor } from "lucide-react";
 import { Certificate, Experience } from "@/types/experience";
 import React from "react";
 
@@ -81,5 +81,36 @@ export const certificates: Certificate[] = [
     issuer: "TryHackMe",
     date: "2022",
     icon: React.createElement(Award, { size: 20, className: "text-tech" })
+  }
+];
+
+export const projects = [
+  {
+    id: 1,
+    title: "DevSecOps Project: Netflix Clone on EKS",
+    description: "Led a secure deployment of a Netflix clone application on AWS EKS using Docker, Kubernetes, and Jenkins. Integrated advanced security measures with tools like SonarQube and Trivy. Implemented Prometheus and Grafana for performance monitoring and employed Helm and ArgoCD for automated deployment processes.",
+    tags: ["aws", "kubernetes", "docker", "jenkins", "sonarqube", "trivy", "prometheus", "grafana", "helm", "argocd"],
+    icon: React.createElement(Cloud, { size: 24, className: "text-cyber" })
+  },
+  {
+    id: 2,
+    title: "Cybersecurity Web Application",
+    description: "Developed an application simulating cybersecurity threats to enhance awareness. The application provides hands-on experience with common vulnerabilities and defensive techniques.",
+    tags: ["node.js", "react.js", "typescript", "bcrypt", "sql", "cybersecurity"],
+    icon: React.createElement(Code, { size: 24, className: "text-cyber" })
+  },
+  {
+    id: 3,
+    title: "Cloud Infrastructure Deployment in AWS",
+    description: "Orchestrated a cloud infrastructure project focused on deploying and monitoring services in AWS, ensuring the robustness and reliability of cloud resources.",
+    tags: ["aws", "cloudformation", "terraform", "monitoring", "iam", "security"],
+    icon: React.createElement(Server, { size: 24, className: "text-cyber" })
+  },
+  {
+    id: 4,
+    title: "OpenTelemetry Astronomy Shop Demo",
+    description: "Deployed a microservices-based e-commerce platform with OpenTelemetry for observability. Implemented Kubernetes (EKS, AKS), Terraform, and Prometheus-Grafana for monitoring.",
+    tags: ["kubernetes", "eks", "aks", "terraform", "prometheus", "grafana", "opentelemetry", "microservices"],
+    icon: React.createElement(Monitor, { size: 24, className: "text-cyber" })
   }
 ];

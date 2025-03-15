@@ -1,8 +1,8 @@
-
 import { useState, useEffect, useRef } from "react";
-import { Github, ExternalLink, Server, Database, Code, Cloud, ArrowRight, ArrowLeft, Eye, X } from "lucide-react";
+import { Github, ExternalLink, ArrowRight, ArrowLeft, Eye, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import { projects } from "@/data/experienceData";
 
 type Project = {
   id: number;
@@ -25,47 +25,6 @@ const ProjectsSection = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const projectsRef = useRef<HTMLDivElement>(null);
-  
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "TailorWise - AI Cover Letter Generator",
-      description: "An AI-powered web application for personalized cover letter generation based on job descriptions and resumes. Features include dynamic job matching, AI-driven text generation, and user-friendly interface.",
-      tags: ["express.js", "ai", "fastapi", "node.js", "mongodb"],
-      icon: <Code size={24} className="text-cyber" />,
-      githubUrl: "https://github.com/mridungeorge/tailorwise",
-      liveUrl: "https://tailorwise.example.com",
-      details: "TailorWise revolutionizes the job application process by leveraging advanced AI algorithms to analyze job descriptions and resumes, generating perfectly tailored cover letters that highlight relevant skills and experiences. The system uses natural language processing to understand job requirements and machine learning to match candidate qualifications, resulting in highly personalized documents that improve application success rates by up to 40%."
-    },
-    {
-      id: 2,
-      title: "AI-Powered Label Generator",
-      description: "Advanced label-generation system integrating with Microsoft Dynamics NAV to fetch real-time product data. Features custom label designer, batch printing, AI-driven layout optimization, and universal printer compatibility.",
-      tags: ["fastapi", "node.js", "react", "postgresql", "mongodb"],
-      icon: <Server size={24} className="text-cyber" />,
-      githubUrl: "https://github.com/mridungeorge/label-generator",
-      details: "This innovative label generation system seamlessly integrates with Microsoft Dynamics NAV to extract real-time product information, specifications, and inventory data. The application features an intuitive label designer with drag-and-drop functionality, AI-powered layout optimization that automatically arranges content for maximum readability, and support for multiple printer types including Zebra, SATO, and standard office printers. The system's batch processing capability enables the simultaneous printing of thousands of labels while maintaining data accuracy and design consistency."
-    },
-    {
-      id: 3,
-      title: "PyExi - No-Code Python Automation",
-      description: "A no-code Python automation script generator enabling users to automate file management, web scraping, data processing, and API integrations. Includes AI-powered task-to-script conversion.",
-      tags: ["react", "next.js", "python", "aws", "azure", "openai"],
-      icon: <Cloud size={24} className="text-cyber" />,
-      githubUrl: "https://github.com/mridungeorge/pyexi",
-      liveUrl: "https://pyexi.example.com",
-      details: "PyExi democratizes Python automation by allowing non-programmers to create powerful scripts through an intuitive no-code interface. Users simply describe tasks in natural language, and PyExi's AI engine converts these descriptions into fully functional Python scripts. The platform supports complex automations including file operations, web data extraction, API integrations, and data transformations. All scripts are securely stored in the cloud with robust encryption and can be scheduled to run at specific intervals or triggered by external events."
-    },
-    {
-      id: 4,
-      title: "API-Driven Analytics Platform",
-      description: "Business intelligence platform for data visualization, KPI tracking, and AI-powered analytics. Features role-based access control, real-time dashboards, and enterprise ERP integration.",
-      tags: ["fastapi", "node.js", "react", "typescript", "postgresql", "mongodb", "tensorflow"],
-      icon: <Database size={24} className="text-cyber" />,
-      githubUrl: "https://github.com/mridungeorge/analytics-platform",
-      details: "This comprehensive analytics platform provides real-time business intelligence through interactive dashboards, customizable reports, and AI-driven insights. The system integrates with enterprise ERP systems including SAP, Oracle, and Microsoft Dynamics to extract and analyze operational data. Features include predictive analytics for sales forecasting, anomaly detection for identifying unusual patterns, and natural language querying that allows users to ask questions about their data in plain English. The platform's role-based access control ensures that sensitive information is only accessible to authorized personnel."
-    }
-  ];
   
   const filteredProjects = filter === "all" 
     ? projects 
@@ -92,7 +51,6 @@ const ProjectsSection = () => {
     return () => observer.disconnect();
   }, []);
   
-  // Track mouse position for cursor effects
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -105,7 +63,6 @@ const ProjectsSection = () => {
     };
   }, []);
   
-  // Automatic slider for mobile view
   useEffect(() => {
     const interval = setInterval(() => {
       if (window.innerWidth < 768) {
@@ -127,19 +84,16 @@ const ProjectsSection = () => {
   const openProjectDetails = (project: Project) => {
     setSelectedProject(project);
     setShowModal(true);
-    // Freeze scrolling when modal is open
     document.body.style.overflow = 'hidden';
   };
   
   const closeModal = () => {
     setShowModal(false);
-    // Restore scrolling
     document.body.style.overflow = 'unset';
   };
   
   return (
     <section id="projects" className="py-20 relative">
-      {/* Custom cursor effect */}
       <div 
         className="hidden md:block fixed w-8 h-8 rounded-full bg-cyber/20 border border-cyber pointer-events-none z-50 transition-transform duration-100"
         style={{ 
@@ -178,7 +132,6 @@ const ProjectsSection = () => {
           ))}
         </div>
         
-        {/* Mobile slider view */}
         <div className="md:hidden relative">
           <div className="overflow-hidden">
             <div 
@@ -280,7 +233,6 @@ const ProjectsSection = () => {
           </button>
         </div>
         
-        {/* Desktop grid view */}
         <div ref={projectsRef} className="hidden md:grid md:grid-cols-2 gap-6">
           {filteredProjects.map((project, index) => (
             <div
@@ -366,7 +318,6 @@ const ProjectsSection = () => {
         </div>
       </div>
       
-      {/* Project Details Modal */}
       {showModal && selectedProject && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div 
