@@ -61,6 +61,26 @@ export const terminalCommands = {
   projects: (
     <div>
       <p className="font-bold">Key Projects:</p>
+      
+      {/* New projects */}
+      <div className="mt-2">
+        <p className="text-cyber">Netflix Clone on EKS</p>
+        <p className="ml-4">Secure deployment on AWS EKS with CI/CD pipelines</p>
+      </div>
+      <div className="mt-2">
+        <p className="text-cyber">Cybersecurity Web Application</p>
+        <p className="ml-4">Educational platform simulating cybersecurity threats</p>
+      </div>
+      <div className="mt-2">
+        <p className="text-cyber">Cloud Infrastructure on AWS</p>
+        <p className="ml-4">Robust cloud architecture with IaC and monitoring</p>
+      </div>
+      <div className="mt-2">
+        <p className="text-cyber">OpenTelemetry Astronomy Shop</p>
+        <p className="ml-4">Microservices e-commerce with comprehensive observability</p>
+      </div>
+      
+      {/* Original projects */}
       <div className="mt-2">
         <p className="text-cyber">TailorWise - AI Cover Letter Generator</p>
         <p className="ml-4">Express.js backend with AI-based resume matching</p>
