@@ -1,5 +1,6 @@
 
 import React from "react";
+import { projects } from "@/data/projectsData";
 
 export const terminalCommands = {
   help: (
@@ -62,41 +63,12 @@ export const terminalCommands = {
     <div>
       <p className="font-bold">Key Projects:</p>
       
-      {/* New projects */}
-      <div className="mt-2">
-        <p className="text-cyber">Netflix Clone on EKS</p>
-        <p className="ml-4">Secure deployment on AWS EKS with CI/CD pipelines</p>
-      </div>
-      <div className="mt-2">
-        <p className="text-cyber">Cybersecurity Web Application</p>
-        <p className="ml-4">Educational platform simulating cybersecurity threats</p>
-      </div>
-      <div className="mt-2">
-        <p className="text-cyber">Cloud Infrastructure on AWS</p>
-        <p className="ml-4">Robust cloud architecture with IaC and monitoring</p>
-      </div>
-      <div className="mt-2">
-        <p className="text-cyber">OpenTelemetry Astronomy Shop</p>
-        <p className="ml-4">Microservices e-commerce with comprehensive observability</p>
-      </div>
-      
-      {/* Original projects */}
-      <div className="mt-2">
-        <p className="text-cyber">TailorWise - AI Cover Letter Generator</p>
-        <p className="ml-4">Express.js backend with AI-based resume matching</p>
-      </div>
-      <div className="mt-2">
-        <p className="text-cyber">AI-Powered Label Generator</p>
-        <p className="ml-4">Microsoft Dynamics NAV integration for real-time data</p>
-      </div>
-      <div className="mt-2">
-        <p className="text-cyber">PyExi - No-Code Python Automation</p>
-        <p className="ml-4">AI-powered task-to-script conversion tool</p>
-      </div>
-      <div className="mt-2">
-        <p className="text-cyber">API-Driven Analytics Platform</p>
-        <p className="ml-4">Business intelligence with AI-powered insights</p>
-      </div>
+      {projects.map((project, index) => (
+        <div key={index} className="mt-2">
+          <p className="text-cyber">{project.title}</p>
+          <p className="ml-4">{project.description.split('.')[0]}.</p>
+        </div>
+      ))}
     </div>
   ),
   contact: (

@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useRef } from "react";
-import { projects } from "@/data/experienceData";
+import { projects } from "@/data/projectsData";
 import { Project } from "@/types/experience";
 import TagFilter from "./projects/TagFilter";
 import ProjectCard from "./projects/ProjectCard";
