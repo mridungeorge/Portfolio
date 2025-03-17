@@ -17,11 +17,6 @@ type CertificatesProps = {
 const Certificates = ({ certificates, isVisible }: CertificatesProps) => {
   return (
     <div>
-      <h3 className="text-2xl font-bold mb-6 flex items-center">
-        <Award size={24} className="text-tech mr-2" />
-        Certifications
-      </h3>
-      
       <div className="space-y-4">
         {certificates.map((cert, index) => (
           <div 
