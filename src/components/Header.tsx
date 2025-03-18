@@ -1,13 +1,17 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Moon, Sun, Github, Linkedin, ExternalLink } from "lucide-react";
+import { Menu, X, Moon, Sun, Github, Linkedin, LogIn, LogOut, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true); // Default to dark mode
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +44,14 @@ const Header = () => {
     { name: "Skills", href: "#skills" },
     { name: "Contact", href: "#contact" },
   ];
+
+  const handleAuthAction = () => {
+    if (user) {
+      signOut();
+    } else {
+      navigate('/auth');
+    }
+  };
   
   return (
     <header className={cn(
@@ -77,6 +89,24 @@ const Header = () => {
           >
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleAuthAction}
+            className="flex items-center gap-2"
+          >
+            {user ? (
+              <>
+                <LogOut size={16} />
+                <span>Sign Out</span>
+              </>
+            ) : (
+              <>
+                <LogIn size={16} />
+                <span>Sign In</span>
+              </>
+            )}
+          </Button>
         </div>
         
         {/* Mobile Menu Button */}
@@ -104,25 +134,47 @@ const Header = () => {
                 </a>
               ))}
             </nav>
-            <div className="mt-6 flex space-x-6 items-center">
-              <a href="https://github.com/mridungeorge" target="_blank" rel="noopener noreferrer" 
-                 className="text-light-darker hover:text-cyber transition-colors duration-300">
-                <Github size={24} />
-              </a>
-              <a href="https://linkedin.com/in/mridungeorge" target="_blank" rel="noopener noreferrer" 
-                 className="text-light-darker hover:text-cyber transition-colors duration-300">
-                <Linkedin size={24} />
-              </a>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleDarkMode();
-                }} 
-                className="text-light-darker hover:text-cyber"
+            <div className="mt-6 flex flex-col space-y-4">
+              <div className="flex space-x-6 items-center">
+                <a href="https://github.com/mridungeorge" target="_blank" rel="noopener noreferrer" 
+                   className="text-light-darker hover:text-cyber transition-colors duration-300">
+                  <Github size={24} />
+                </a>
+                <a href="https://linkedin.com/in/mridungeorge" target="_blank" rel="noopener noreferrer" 
+                   className="text-light-darker hover:text-cyber transition-colors duration-300">
+                  <Linkedin size={24} />
+                </a>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleDarkMode();
+                  }} 
+                  className="text-light-darker hover:text-cyber"
+                >
+                  {darkMode ? <Sun size={24} /> : <Moon size={24} />}
+                </Button>
+              </div>
+              <Button
+                onClick={() => {
+                  handleAuthAction();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full mt-4"
+                variant="outline"
               >
-                {darkMode ? <Sun size={24} /> : <Moon size={24} />}
+                {user ? (
+                  <>
+                    <LogOut size={16} className="mr-2" />
+                    <span>Sign Out</span>
+                  </>
+                ) : (
+                  <>
+                    <LogIn size={16} className="mr-2" />
+                    <span>Sign In</span>
+                  </>
+                )}
               </Button>
             </div>
           </div>
