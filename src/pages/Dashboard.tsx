@@ -9,66 +9,129 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { useToast } from "@/components/ui/use-toast";
+import { useQuery } from "@tanstack/react-query";
 
-// Mock data for statistics (replace with real data from API/Supabase later)
-const pageViewsData = [
-  { name: "Mon", views: 120 },
-  { name: "Tue", views: 180 },
-  { name: "Wed", views: 150 },
-  { name: "Thu", views: 200 },
-  { name: "Fri", views: 250 },
-  { name: "Sat", views: 180 },
-  { name: "Sun", views: 110 },
-];
-
-const interactionData = [
-  { name: "Resume Downloads", value: 45 },
-  { name: "Terminal Usage", value: 78 },
-  { name: "Contact Form", value: 53 },
-];
-
+// Colors for the pie chart
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
 
 const Dashboard = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  const [profile, setProfile] = useState<any>(null);
-  const [contactRequests, setContactRequests] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState("overview");
+  const { toast } = useToast();
 
+  // Redirect if not logged in
   useEffect(() => {
     if (!loading && !user) {
       navigate("/auth");
-    } else if (user) {
-      fetchUserProfile();
-      fetchContactRequests();
     }
   }, [user, loading, navigate]);
 
-  const fetchUserProfile = async () => {
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", user?.id)
-      .single();
+  // Fetch user profile
+  const { data: profile, isLoading: profileLoading } = useQuery({
+    queryKey: ['profile', user?.id],
+    queryFn: async () => {
+      if (!user) return null;
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
 
-    if (data) {
-      setProfile(data);
-    }
+      if (error) {
+        toast({
+          title: "Error fetching profile",
+          description: error.message,
+          variant: "destructive"
+        });
+        return null;
+      }
+      return data;
+    },
+    enabled: !!user
+  });
+
+  // Fetch contact requests
+  const { data: contactRequests = [], isLoading: contactsLoading } = useQuery({
+    queryKey: ['contacts'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("contact_submissions")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        toast({
+          title: "Error fetching contacts",
+          description: error.message,
+          variant: "destructive"
+        });
+        return [];
+      }
+      return data;
+    },
+    enabled: !!user
+  });
+
+  // Create statistics tracking functions
+  const fetchPageViews = async () => {
+    // In a real application, this would fetch from Supabase
+    // For now, we'll use mock data
+    return [
+      { name: "Mon", views: 120 },
+      { name: "Tue", views: 180 },
+      { name: "Wed", views: 150 },
+      { name: "Thu", views: 200 },
+      { name: "Fri", views: 250 },
+      { name: "Sat", views: 180 },
+      { name: "Sun", views: 110 },
+    ];
   };
 
-  const fetchContactRequests = async () => {
-    const { data, error } = await supabase
-      .from("contact_submissions")
-      .select("*")
-      .order("created_at", { ascending: false });
+  // Fetch page views data
+  const { data: pageViewsData = [], isLoading: pageViewsLoading } = useQuery({
+    queryKey: ['pageViews'],
+    queryFn: fetchPageViews,
+    enabled: !!user
+  });
 
-    if (data) {
-      setContactRequests(data);
-    }
-  };
+  // Fetch interaction data
+  const { data: interactionData = [], isLoading: interactionsLoading } = useQuery({
+    queryKey: ['interactions'],
+    queryFn: async () => {
+      // Mock data - in a real app, fetch from Supabase
+      return [
+        { name: "Resume Downloads", value: 45 },
+        { name: "Terminal Usage", value: 78 },
+        { name: "Contact Form", value: 53 },
+      ];
+    },
+    enabled: !!user
+  });
 
-  if (loading) {
+  // Fetch terminal commands stats
+  const { data: terminalCommands = [], isLoading: commandsLoading } = useQuery({
+    queryKey: ['terminalCommands'],
+    queryFn: async () => {
+      // Mock data - in a real app, fetch from Supabase
+      return [
+        { command: "help", count: 42 },
+        { command: "projects", count: 29 },
+        { command: "skills", count: 23 },
+        { command: "contact", count: 18 },
+        { command: "experience", count: 14 },
+      ];
+    },
+    enabled: !!user
+  });
+
+  // Calculate totals for the cards
+  const totalPageViews = pageViewsData.reduce((sum, item) => sum + item.views, 0);
+  const totalResumeDownloads = interactionData.find(item => item.name === "Resume Downloads")?.value || 0;
+  const totalTerminalSessions = interactionData.find(item => item.name === "Terminal Usage")?.value || 0;
+
+  if (loading || profileLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -118,7 +181,7 @@ const Dashboard = () => {
                   <CardDescription>Last 7 days</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold">1,290</div>
+                  <div className="text-3xl font-bold">{totalPageViews}</div>
                 </CardContent>
                 <CardFooter className="text-xs text-muted-foreground">
                   +12.5% from last week
@@ -131,7 +194,7 @@ const Dashboard = () => {
                   <CardDescription>Last 7 days</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold">45</div>
+                  <div className="text-3xl font-bold">{totalResumeDownloads}</div>
                 </CardContent>
                 <CardFooter className="text-xs text-muted-foreground">
                   +23% from last week
@@ -144,7 +207,7 @@ const Dashboard = () => {
                   <CardDescription>Last 7 days</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold">78</div>
+                  <div className="text-3xl font-bold">{totalTerminalSessions}</div>
                 </CardContent>
                 <CardFooter className="text-xs text-muted-foreground">
                   +8% from last week
@@ -159,15 +222,16 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="h-80">
-                  <ChartContainer config={{ views: { theme: { light: '#0088FE', dark: '#0088FE' } } }}>
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                    <BarChart data={pageViewsData}>
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Bar dataKey="views" fill="#0088FE" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ChartContainer>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <ChartContainer config={{ views: { theme: { light: '#0088FE', dark: '#0088FE' } } }}>
+                      <BarChart data={pageViewsData}>
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip content={<ChartTooltipContent />} />
+                        <Bar dataKey="views" fill="#0088FE" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ChartContainer>
+                  </ResponsiveContainer>
                 </div>
               </CardContent>
             </Card>
@@ -256,26 +320,12 @@ const Dashboard = () => {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      <TableRow>
-                        <TableCell className="font-medium">help</TableCell>
-                        <TableCell className="text-right">42</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">projects</TableCell>
-                        <TableCell className="text-right">29</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">skills</TableCell>
-                        <TableCell className="text-right">23</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">contact</TableCell>
-                        <TableCell className="text-right">18</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">experience</TableCell>
-                        <TableCell className="text-right">14</TableCell>
-                      </TableRow>
+                      {terminalCommands.map((item) => (
+                        <TableRow key={item.command}>
+                          <TableCell className="font-medium">{item.command}</TableCell>
+                          <TableCell className="text-right">{item.count}</TableCell>
+                        </TableRow>
+                      ))}
                     </TableBody>
                   </Table>
                 </CardContent>
