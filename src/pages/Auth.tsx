@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Input } from "@/components/ui/input";
@@ -13,9 +13,15 @@ const Auth = () => {
   const [fullName, setFullName] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { signIn, signUp, loading } = useAuth();
+  const { signIn, signUp, loading, user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +41,7 @@ const Auth = () => {
           description: "Please check your email to verify your account."
         });
         
-        navigate("/");
+        navigate("/dashboard");
       } else {
         const { error } = await signIn(email, password);
         if (error) throw error;
@@ -45,7 +51,7 @@ const Auth = () => {
           description: "You've been successfully logged in."
         });
         
-        navigate("/");
+        navigate("/dashboard");
       }
     } catch (error: any) {
       setError(error.message || "An error occurred");
