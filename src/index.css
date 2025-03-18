@@ -1,0 +1,151 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-dark text-light font-inter antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-dark-lighter/60 backdrop-blur-md border border-white/10 shadow-lg;
+  }
+  
+  .glass-card {
+    @apply bg-dark-lighter/80 backdrop-blur-lg border border-white/10 rounded-xl shadow-xl transition-all duration-300 hover:shadow-cyber/20 hover:border-cyber/30;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-cyber to-tech bg-clip-text text-transparent;
+  }
+  
+  .nav-link {
+    @apply relative px-3 py-2 text-light-darker hover:text-white transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-cyber after:transition-all after:duration-300 hover:after:w-full;
+  }
+  
+  .nav-link.active {
+    @apply text-white after:w-full;
+  }
+  
+  .terminal {
+    @apply font-mono bg-dark-lighter/80 border border-cyber/30 rounded-md p-4 text-light;
+  }
+
+  .terminal-line::before {
+    content: "$ ";
+    @apply text-cyber;
+  }
+  
+  .btn-cyber {
+    @apply px-6 py-2 bg-cyber/20 text-cyber hover:bg-cyber/30 border border-cyber/40 rounded transition-all duration-300 hover:shadow-md hover:shadow-cyber/20;
+  }
+  
+  .btn-tech {
+    @apply px-6 py-2 bg-tech/20 text-tech-light hover:bg-tech/30 border border-tech/40 rounded transition-all duration-300 hover:shadow-md hover:shadow-tech/20;
+  }
+  
+  .animated-border {
+    @apply relative rounded-lg border border-transparent;
+    background: linear-gradient(#121212, #121212) padding-box,
+                linear-gradient(90deg, #00FFFF, #7B42F6, #00FFFF) border-box;
+    animation: border-rotate 4s linear infinite;
+  }
+  
+  @keyframes border-rotate {
+    from {
+      background-position: 0% center;
+    }
+    to {
+      background-position: 200% center;
+    }
+  }
+}
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Font utilities */
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
