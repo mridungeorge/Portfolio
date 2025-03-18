@@ -54,54 +54,32 @@ export const useDashboardData = () => {
     enabled: !!user
   });
 
-  // Create statistics tracking functions
-  const fetchPageViews = async () => {
-    // In a real application, this would fetch from Supabase
-    // For now, we'll use mock data
-    return [
-      { name: "Mon", views: 120 },
-      { name: "Tue", views: 180 },
-      { name: "Wed", views: 150 },
-      { name: "Thu", views: 200 },
-      { name: "Fri", views: 250 },
-      { name: "Sat", views: 180 },
-      { name: "Sun", views: 110 },
-    ];
-  };
-
-  // Fetch page views data
+  // Fetch page views data - empty array for now (will be implemented later)
   const { data: pageViewsData = [], isLoading: pageViewsLoading } = useQuery({
     queryKey: ['pageViews'],
-    queryFn: fetchPageViews,
-    enabled: !!user
-  });
-
-  // Fetch interaction data
-  const { data: interactionData = [], isLoading: interactionsLoading } = useQuery({
-    queryKey: ['interactions'],
     queryFn: async () => {
-      // Mock data - in a real app, fetch from Supabase
-      return [
-        { name: "Resume Downloads", value: 45 },
-        { name: "Terminal Usage", value: 78 },
-        { name: "Contact Form", value: 53 },
-      ];
+      // This would fetch real data from Supabase in a future implementation
+      return [];
     },
     enabled: !!user
   });
 
-  // Fetch terminal commands stats
+  // Fetch interaction data - empty array for now (will be implemented later)
+  const { data: interactionData = [], isLoading: interactionsLoading } = useQuery({
+    queryKey: ['interactions'],
+    queryFn: async () => {
+      // This would fetch real data from Supabase in a future implementation
+      return [];
+    },
+    enabled: !!user
+  });
+
+  // Fetch terminal commands stats - empty array for now (will be implemented later)
   const { data: terminalCommands = [], isLoading: commandsLoading } = useQuery({
     queryKey: ['terminalCommands'],
     queryFn: async () => {
-      // Mock data - in a real app, fetch from Supabase
-      return [
-        { command: "help", count: 42 },
-        { command: "projects", count: 29 },
-        { command: "skills", count: 23 },
-        { command: "contact", count: 18 },
-        { command: "experience", count: 14 },
-      ];
+      // This would fetch real data from Supabase in a future implementation
+      return [];
     },
     enabled: !!user
   });
