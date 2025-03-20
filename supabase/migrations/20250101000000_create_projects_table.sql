@@ -1,8 +1,8 @@
 
 -- Create a projects table to store GitHub URLs and other project-related data
 CREATE TABLE IF NOT EXISTS public.projects (
-  id INTEGER PRIMARY KEY,
-  title TEXT,
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title TEXT NOT NULL,
   description TEXT,
   tags JSONB,
   github_url TEXT,

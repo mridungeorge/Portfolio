@@ -48,12 +48,15 @@ const ProjectCard = ({
     }
 
     try {
-      // Save GitHub URL to Supabase
+      // Save GitHub URL to Supabase with the correct types
       const { error } = await supabase
         .from("projects")
         .upsert({
-          id: project.id,
+          title: project.title,
+          description: project.description,
+          tags: project.tags,
           github_url: githubUrl,
+          live_url: project.liveUrl,
           user_id: user.id
         });
 
