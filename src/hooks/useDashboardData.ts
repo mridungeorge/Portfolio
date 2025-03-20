@@ -1,4 +1,3 @@
-
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,21 +12,57 @@ export const useDashboardData = () => {
     queryKey: ['profile', user?.id],
     queryFn: async () => {
       if (!user) return null;
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .single();
+      
+      try {
+        // First try to get the profile
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", user.id)
+          .maybeSingle();
 
-      if (error) {
+        if (error) {
+          console.error("Error fetching profile:", error);
+          throw error;
+        }
+        
+        // If profile exists, return it
+        if (data) {
+          return data;
+        }
+        
+        // If profile doesn't exist, attempt to create one using Supabase auth user data
+        const userMetadata = {
+          id: user.id,
+          username: user.email?.split('@')[0] || 'user',
+          full_name: user.user_metadata?.full_name || null,
+          avatar_url: user.user_metadata?.avatar_url || null
+        };
+        
+        // Attempt to create the profile
+        const { data: newProfile, error: createError } = await supabase
+          .auth.getUser();
+          
+        if (createError) {
+          console.error("Error creating profile:", createError);
+          throw createError;
+        }
+        
+        // Return a temporary profile while waiting for the database to sync
+        return userMetadata;
+      } catch (err: any) {
         toast({
-          title: "Error fetching profile",
-          description: error.message,
+          title: "Error with profile",
+          description: err.message || "Something went wrong with your profile",
           variant: "destructive"
         });
-        return null;
+        
+        // Return a minimal profile with just the user ID so the UI doesn't break
+        return {
+          id: user.id,
+          username: user.email?.split('@')[0] || 'user'
+        };
       }
-      return data;
     },
     enabled: !!user
   });
@@ -54,29 +89,6 @@ export const useDashboardData = () => {
     enabled: !!user
   });
 
-<<<<<<< HEAD
-=======
-  // Create statistics tracking functions
-  //const fetchPageViews = async () => {
-    // In a real application, this would fetch from Supabase
-    // For now, we'll use mock data
-    //return [
-      //{ name: "Mon", views: 120 },
-     // { name: "Tue", views: 180 },
-      //{ name: "Wed", views: 150 },
-      //{ name: "Thu", views: 200 },
-      //{ name: "Fri", views: 250 },
-     // { name: "Sat", views: 180 },
-     // { name: "Sun", views: 110 },];};
-
-  // Fetch page views data
-  //const { data: pageViewsData = [], isLoading: pageViewsLoading } = useQuery({
-   // queryKey: ['pageViews'],
-   // queryFn: fetchPageViews,
-   // enabled: !!user
- // });
-
->>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
   // Fetch page views data - empty array for now (will be implemented later)
   const { data: pageViewsData = [], isLoading: pageViewsLoading } = useQuery({
     queryKey: ['pageViews'],
@@ -87,49 +99,21 @@ export const useDashboardData = () => {
     enabled: !!user
   });
 
-<<<<<<< HEAD
   // Fetch interaction data - empty array for now (will be implemented later)
   const { data: interactionData = [], isLoading: interactionsLoading } = useQuery({
     queryKey: ['interactions'],
     queryFn: async () => {
-=======
-  // Fetch interaction data
-  const { data: interactionData = [], isLoading: interactionsLoading } = useQuery({
-    queryKey: ['interactions'],
-    queryFn: async () => {
-      // Mock data - in a real app, fetch from Supabase
-      //return [
-      //  { name: "Resume Downloads", value: 45 },
-      //  { name: "Terminal Usage", value: 78 },
-      //  { name: "Contact Form", value: 53 },
-      //];
->>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
       // This would fetch real data from Supabase in a future implementation
       return [];
     },
     enabled: !!user
   });
 
-<<<<<<< HEAD
   // Fetch terminal commands stats - empty array for now (will be implemented later)
   const { data: terminalCommands = [], isLoading: commandsLoading } = useQuery({
     queryKey: ['terminalCommands'],
     queryFn: async () => {
       // This would fetch real data from Supabase in a future implementation
-=======
-  // Fetch terminal commands stats
-  const { data: terminalCommands = [], isLoading: commandsLoading } = useQuery({
-    queryKey: ['terminalCommands'],
-    queryFn: async () => {
-      // Mock data - in a real app, fetch from Supabase
-      //return [
-      //  { command: "help", count: 42 },
-      // { command: "projects", count: 29 },
-      //  { command: "skills", count: 23 },
-      //  { command: "contact", count: 18 },
-      //  { command: "experience", count: 14 },
-      //];
->>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
       return [];
     },
     enabled: !!user

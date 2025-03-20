@@ -1,6 +1,4 @@
-
 import { useState } from "react";
-<<<<<<< HEAD
 import { Github, ExternalLink, ArrowRight, Eye, Edit } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Project } from "@/types/experience";
@@ -8,11 +6,6 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
-=======
-import { Github, ExternalLink, ArrowRight, Eye } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Project } from "@/types/experience";
->>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
 
 interface ProjectCardProps {
   project: Project;
@@ -31,7 +24,6 @@ const ProjectCard = ({
   setActiveProject, 
   openProjectDetails 
 }: ProjectCardProps) => {
-<<<<<<< HEAD
   const { user } = useAuth();
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
@@ -86,8 +78,6 @@ const ProjectCard = ({
     }
   };
 
-=======
->>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
   return (
     <div
       className={cn(
@@ -116,7 +106,6 @@ const ProjectCard = ({
         </div>
         
         <div className="flex space-x-2">
-<<<<<<< HEAD
           {user && (
             <Button 
               variant="ghost" 
@@ -127,8 +116,6 @@ const ProjectCard = ({
               <Edit size={18} className="text-light-darker hover:text-cyber" />
             </Button>
           )}
-=======
->>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
           {project.githubUrl && (
             <a 
               href={project.githubUrl} 
@@ -154,7 +141,6 @@ const ProjectCard = ({
         </div>
       </div>
       
-<<<<<<< HEAD
       {isEditing ? (
         <form onSubmit={saveGithubUrl} onClick={(e) => e.stopPropagation()} className="mb-4 z-20">
           <div className="mb-2">
@@ -204,28 +190,6 @@ const ProjectCard = ({
           </div>
         </>
       )}
-=======
-      <p className="text-light-darker mb-4">{project.description}</p>
-      
-      <div className="flex flex-wrap gap-2">
-        {project.tags.map((tag) => (
-          <span 
-            key={tag} 
-            className="text-xs px-2 py-1 rounded-full bg-dark-light text-light-darker hover:bg-dark hover:text-light"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-      
-      <div className={cn(
-        "mt-4 flex items-center text-cyber transform transition-opacity duration-300",
-        activeProject === project.id ? "opacity-100" : "opacity-0"
-      )}>
-        <span>View Details</span>
-        <ArrowRight size={16} className="ml-2 animate-pulse" />
-      </div>
->>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
     </div>
   );
 };

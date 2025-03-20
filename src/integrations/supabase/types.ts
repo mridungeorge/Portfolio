@@ -63,7 +63,6 @@ export type Database = {
         }
         Relationships: []
       }
-<<<<<<< HEAD
       projects: {
         Row: {
           created_at: string | null
@@ -100,8 +99,6 @@ export type Database = {
         }
         Relationships: []
       }
-=======
->>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
     }
     Views: {
       [_ in never]: never
