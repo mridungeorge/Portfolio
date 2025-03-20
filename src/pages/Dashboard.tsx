@@ -1,16 +1,17 @@
-
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { LogOut, ArrowLeft } from "lucide-react";
 import { useDashboardData } from "@/hooks/useDashboardData";
 import OverviewTab from "@/components/dashboard/tabs/OverviewTab";
 import ContactsTab from "@/components/dashboard/tabs/ContactsTab";
 import InteractionsTab from "@/components/dashboard/tabs/InteractionsTab";
 
 const Dashboard = () => {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, signOut } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("overview");
   
@@ -32,6 +33,10 @@ const Dashboard = () => {
 
   const isLoading = authLoading || loading.profile;
 
+  const handleSignOut = async () => {
+    await signOut();
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -47,22 +52,36 @@ const Dashboard = () => {
     <div className="min-h-screen bg-dark-lighter/30 p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold gradient-text">Dashboard</h1>
-            <p className="text-muted-foreground">
-              Welcome back, {profile?.full_name || profile?.username || "User"}
-            </p>
-          </div>
-          <div className="glass p-2 rounded-lg flex items-center space-x-3 mt-4 md:mt-0">
-            <Avatar className="h-10 w-10">
-              <AvatarImage src={profile?.avatar_url} />
-              <AvatarFallback className="bg-cyber/20 text-cyber">
-                {profile?.username?.substring(0, 2) || user?.email?.substring(0, 2) || "U"}
-              </AvatarFallback>
-            </Avatar>
+          <div className="flex items-center gap-3">
+            <Link to="/">
+              <Button variant="outline" size="sm" className="flex items-center gap-2">
+                <ArrowLeft className="h-4 w-4" />
+                Back to Home
+              </Button>
+            </Link>
             <div>
-              <p className="text-sm font-medium">{profile?.username || user?.email}</p>
-              <p className="text-xs text-muted-foreground">Administrator</p>
+              <h1 className="text-3xl font-bold gradient-text">Dashboard</h1>
+              <p className="text-muted-foreground">
+                Welcome back, {profile?.full_name || profile?.username || "User"}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 mt-4 md:mt-0">
+            <Button variant="outline" size="sm" onClick={handleSignOut} className="flex items-center gap-2">
+              <LogOut className="h-4 w-4" />
+              Sign Out
+            </Button>
+            <div className="glass p-2 rounded-lg flex items-center space-x-3">
+              <Avatar className="h-10 w-10">
+                <AvatarImage src={profile?.avatar_url} />
+                <AvatarFallback className="bg-cyber/20 text-cyber">
+                  {profile?.username?.substring(0, 2) || user?.email?.substring(0, 2) || "U"}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="text-sm font-medium">{profile?.username || user?.email}</p>
+                <p className="text-xs text-muted-foreground">Administrator</p>
+              </div>
             </div>
           </div>
         </div>

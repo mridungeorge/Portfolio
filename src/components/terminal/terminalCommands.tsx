@@ -1,4 +1,3 @@
-
 import React from "react";
 import { projects } from "@/data/projectsData";
 
@@ -16,7 +15,19 @@ export const terminalCommands = {
       </ul>
     </div>
   ),
-  whoami: "Mridun George - DevOps Engineer & System Analyst with 2+ years of experience building secure cloud infrastructure, implementing CI/CD pipelines, and automating business processes.",
+  whoami: (
+    <div>
+      <p className="font-bold mb-1">Mridun George</p>
+      <ul className="text-sm text-light-darker ml-2 mb-2">
+        <li>• Cloud & DevOps Solutions Architect</li>
+        <li>• Microsoft Dynamics 365 & Cloud Infrastructure Engineer</li>
+        <li>• DevOps Engineer & Cloud Security Specialist</li>
+        <li>• Enterprise Systems Analyst (Dynamics 365 & Cloud Solutions)</li>
+        <li>• Full-Stack DevOps & Cloud Solutions Engineer</li>
+      </ul>
+      <p>DevOps Engineer & System Analyst with 2+ years of experience building secure cloud infrastructure, implementing CI/CD pipelines, and automating business processes.</p>
+    </div>
+  ),
   skills: (
     <div>
       <p>Technical Skills:</p>
