@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
 import InteractionPieChart from "../InteractionPieChart";
 import TerminalCommandsTable from "../TerminalCommandsTable";
 

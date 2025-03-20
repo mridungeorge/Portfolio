@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 
 import ContactRequestsTable from "../ContactRequestsTable";
 
+=======
+import ContactRequestsTable from "../ContactRequestsTable";
+>>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
 interface ContactsTabProps {
   contactRequests: any[];
 }

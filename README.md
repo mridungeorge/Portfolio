@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Welcome to your Lovable project
 
 ## Project info
@@ -20,6 +21,8 @@ If you want to work locally using your own IDE, you can clone this repo and push
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
+=======
+>>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
 Follow these steps:
 
 ```sh
@@ -35,6 +38,7 @@ npm i
 # Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
+<<<<<<< HEAD
 
 **Edit a file directly in GitHub**
 
@@ -50,6 +54,8 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
+=======
+>>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
 ## What technologies are used for this project?
 
 This project is built with .
@@ -60,6 +66,7 @@ This project is built with .
 - shadcn-ui
 - Tailwind CSS
 
+<<<<<<< HEAD
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/b5741af8-ef17-4bc9-82a0-dbe47f07b92a) and click on Share -> Publish.
@@ -67,3 +74,5 @@ Simply open [Lovable](https://lovable.dev/projects/b5741af8-ef17-4bc9-82a0-dbe47
 ## I want to use a custom domain - is that possible?
 
 We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+=======
+>>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53

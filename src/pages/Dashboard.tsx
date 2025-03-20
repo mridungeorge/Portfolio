@@ -1,18 +1,31 @@
 
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { useNavigate, Link } from "react-router-dom";
+=======
+import { useNavigate } from "react-router-dom";
+>>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
 import { useAuth } from "@/contexts/AuthContext";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+<<<<<<< HEAD
 import { LogOut, ArrowLeft } from "lucide-react";
+=======
+import { LogOut } from "lucide-react";
+>>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
 import { useDashboardData } from "@/hooks/useDashboardData";
 import OverviewTab from "@/components/dashboard/tabs/OverviewTab";
 import ContactsTab from "@/components/dashboard/tabs/ContactsTab";
 import InteractionsTab from "@/components/dashboard/tabs/InteractionsTab";
 
 const Dashboard = () => {
+<<<<<<< HEAD
   const { user, loading: authLoading, signOut } = useAuth();
+=======
+ //const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, signOut } = useAuth(); 
+>>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("overview");
   
@@ -33,7 +46,10 @@ const Dashboard = () => {
   }, [user, authLoading, navigate]);
 
   const isLoading = authLoading || loading.profile;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
   const handleSignOut = async () => {
     await signOut();
   };
@@ -53,6 +69,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-dark-lighter/30 p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+<<<<<<< HEAD
           <div className="flex items-center gap-3">
             <Link to="/">
               <Button variant="outline" size="sm" className="flex items-center gap-2">
@@ -66,6 +83,13 @@ const Dashboard = () => {
                 Welcome back, {profile?.full_name || profile?.username || "User"}
               </p>
             </div>
+=======
+          <div>
+            <h1 className="text-3xl font-bold gradient-text">Dashboard</h1>
+            <p className="text-muted-foreground">
+              Welcome back, {profile?.full_name || profile?.username || "User"}
+            </p>
+>>>>>>> 44e5f949b15dd8f2e2429dac871b416fc238fd53
           </div>
           <div className="flex items-center gap-4 mt-4 md:mt-0">
             <Button variant="outline" size="sm" onClick={handleSignOut} className="flex items-center gap-2">
